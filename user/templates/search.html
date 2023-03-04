@@ -1,0 +1,55 @@
+{% extends 'userbase.html' %}
+
+
+
+{% block content %}
+
+    
+    <div class="row">
+        <div class="col-8 offset-2">
+            <!-- <form action="" method="post">
+                {% csrf_token %}
+                <div class="input-group flex-nowrap">
+                    <input type="search" name="susername" id="susername" class="form-control" placeholder="search for username..." aria-label="Username" aria-describedby="addon-wrapping">
+                    <div class="input-group-prepend">
+                        <button type="submit" class="input-group-text" id="addon-wrapping"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </form> -->
+            
+            {% if username != None %}
+                <h6 class="text-center m-5">Search result for '{{ username }}'...</h6>    
+            {% endif %}
+                
+            
+            {% for profile in profiles %}
+                <a style="text-decoration: none;color: black;" href="{% url 'user_profile' username=profile %}">
+                    <div class="container mt-5 shadow-lg p-3 rounded-lg m-3">
+                    <div class="d-flex align-items-center">
+                        
+                        {% if profile.profilepic %}
+                        <img style="height: 150px;width: 150px;border:2px solid black;" src="/media/{{ profile.profilepic }}" alt="">
+                        {% else %}
+                        <img style="height: 150px;width: 150px;border:2px solid black;" src="/media/{{ profile.profilepic.field.default }}" alt="">
+                        {% endif %}
+                            
+                        <div class="text-center p-5">
+                            <h5>Username : {{ profile }}</h5>
+                            <p>Full Name: {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+                        </div>
+                    </div>
+                </div>
+                </a>
+                
+
+            {% endfor %}
+            
+            {% if lenprof == 0 %}
+                <h3 class="text-center m-3">Not Found!</h3>
+            {% endif %}
+                
+
+        </div>
+    </div>
+{% endblock content %}
+    

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="row" style="height: 80vh;align-items: center;">
+        <div class="col-6 offset-3 text-center">
+            <div class="container p-5 rounded-lg bg-white">
+                <h6>THANKS FOR USING KETA.</h6>
+                <h6>YOUR ACCOUNT HAS BEEN SUCCESSFULLY DEACTIVATED!</h6>
+                <P>If you wish to create a new account,please register here</P>
+                <a href="{% url 'register' %}" class="btn btn-outline-primary">REGISTER</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    

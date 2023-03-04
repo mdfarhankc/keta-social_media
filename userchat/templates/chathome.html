@@ -1,0 +1,98 @@
+{% extends 'userhome.html' %}
+
+
+{% block content %}
+<style>
+    .chatcon{
+        border:2px solid #b921ff  ;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 800px;
+        margin-top: 100px;
+    }
+    .chatlist{
+        margin-top: 50px;
+    }
+    .chats{
+        display: flex;
+        align-items: center;
+        border:2px solid #b921ff  ;
+        border-radius: 10px;
+        padding: 10px;
+        max-width: 600px;
+        margin-inline: auto;
+        margin-bottom: 20px;
+    }
+    .chats:hover{
+        background-color: #b921ff;
+        color: white;
+    }
+    .chats:hover .username{
+        color: white;
+    }
+    .img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .username{
+        color: #b921ff;
+        font-weight: bolder;
+        text-transform: uppercase;
+    }
+    .header{
+        text-align: center;
+        color: #b921ff;
+        font-weight: bolder;
+
+    }
+
+
+</style>
+    <div class="container chatcon">
+        <h3 class="header">ALL CHATS</h3>
+        <div class="dropdown text-right">
+            <a class="btn btn-primary" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                NEW CHAT  <i class="bi bi-plus-lg"></i>
+            </a>
+          
+            <div class="dropdown-menu dropdown-menu-right">
+                
+                {% if lenusers == 0 %}
+                    <h6>No Users</h6>
+                {% endif %}
+                    
+                {% for user in newchat %}
+                <a class="dropdown-item username" href="{% url 'chat' username=user %}">{{ user }}</a>     
+                {% endfor %}
+            
+            </div>
+          </div>
+        <div class="chatlist">
+            
+            {% if lenchat == 0 %}
+                <h4 class="username text-center">NO CHATS YET!</h4>    
+            {% else %}
+                {% for user in chatusers %}
+                    <div>
+                        <a  class="chats" style="text-decoration: none;" href="{% url 'chat' username=user %}">
+                            <div class="img">
+                                {% if user.profilepic %}
+                                    <img style="height: 50px;width: 50px;border-radius: 10px; margin-right: 10px;" src="/media/{{ user.profilepic }}" alt="">
+                                {% else %} 
+                                    <img style="height: 50px;width: 50px;border-radius: 10px; margin-right: 10px;" src="/media/{{ user.profilepic.field.default }}" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="user">
+                                <h6 class="username">{{ user }}</h6>
+                                <p>Last Login : <small>{{ user.user.last_login }}</small></p>
+                            </div>
+                        </a>    
+                    </div>
+                {% endfor %}
+            {% endif %}
+                
+        </div>
+    </div>
+{% endblock content %}
+    

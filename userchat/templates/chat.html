@@ -1,0 +1,115 @@
+{% extends 'userbase.html' %}
+
+{% block content %}
+
+<style>
+.chat-messages {
+  height: 400px;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.chat-message {
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.sent {
+  background-color: #b921ff;
+  color: white;
+  text-align: right;
+  /* float: right; */
+  margin-left: auto;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 20px 50px 0px 20px;
+
+}
+
+.received {
+  background-color: #9e9c9c;
+  color: black;
+  text-align: left;
+  /* float: left; */
+  margin-right: auto;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 50px 20px 20px 0px;
+
+}
+
+.chat-time {
+  font-size: 12px;
+  margin-left: 10px;
+}
+.chat-header{
+    background-color: #b921ff;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.container{
+  background-color: white;
+  border-radius: 20px;
+  border: #b921ff solid 3px;
+  margin-top: 100px;
+}
+.form-group{
+  margin-top: 50px;
+}
+
+</style>
+<div class="chatbody">
+  <div class="container align-items-center">
+    <div class="chat-header">
+        <div class="img d-flex justify-content-center">
+          <a href="{% url 'user_profile' username=other_user.username %}">
+            {% if other_user_profile.profilepic %}
+            <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ other_user_profile.profilepic }}" alt="">
+            {% else %} 
+            <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ other_user_profile.profilepic.field.default }}" alt="">
+            {% endif %}
+        </a>
+        <h6 id="other-user" data-username="{{ other_user.username }}">Chat with {{ other_user.username }}</h6>
+        </div>
+        <div class="button">
+          <button id="back-button" class="btn btn-outline-light btn-sm "><i class="bi bi-arrow-left"></i></button>
+        </div>
+    </div>
+    <div class="chat-messages">
+    {% for chat in chats %}
+        {% if chat.sender == user %}
+        <div class="chat-message sent">
+            <p class="mr-3">{{ chat.message }}</p>
+            <span class="chat-time">{{ chat.timestamp }}</span>
+        </div>
+        {% else %}
+        <div class="chat-message received">
+            <p class="ml-3">{{ chat.message }}</p>
+            <span class="chat-time">{{ chat.timestamp }}</span>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+
+    <form method="POST" id="chat-form">
+    {% csrf_token %}
+        <div class="form-group d-flex justify-content-center">
+            <input style="max-width: 600px;border-radius: 10px;border-color:#b921ff ;" class="form-control" type="text" id="message" name="message" placeholder="Type your message here">
+            <button id="sendbtn" style="margin-left:10px;background-color: #b921ff;color: white;border: none;border-radius: 50%;height: 40px;width: 40px;padding: 5px;" type="submit"><i class="bi bi-send"></i></button>
+        </div>
+    </form>
+</div>
+</div>
+<script>
+  const backButton = document.getElementById('back-button');
+    backButton.addEventListener('click', function() {
+    window.history.back();
+});
+</script>
+{% endblock content %}

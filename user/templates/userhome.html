@@ -1,0 +1,158 @@
+{% extends 'userbase.html' %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <div class="col-6 left">
+                
+                {% if lenpost == 0 %}
+                    <h3 class="text-center m-5">No Posts! You Can Become The First Person to Post!</h3>
+                {% endif %}
+                    
+                {% for post in posts reversed %}
+                    
+                    {% if post.image == "" %}
+                        <div class="container ml-5 mb-5 bg-white shadow-lg rounded-lg">
+                            <div class="d-flex header p-2 pt-3 justify-content-between">
+                                <div class="d-flex">
+                                    <a href="{% url 'user_profile' username=post.user %}">
+                                        
+                                        {% if post.profile.profilepic %}
+                                        <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic }}" alt="">
+                                        {% else %} 
+                                        <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic.field.default }}" alt="">
+                                        {% endif %}
+                                            
+                                    </a>
+                                    <span><a style="text-decoration: none;color:#b921ff ;" href="{% url 'user_profile' username=post.user %}">{{ post.user }}</a></span>
+                                </div>  
+                                <div>
+                                    <i class="bi bi-three-dots"></i>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="text">
+                                <p class="ml-3 font-weight-bold text-uppercase">{{ post.text }}</p>
+                            </div>
+                            <hr>
+                            <div class="p-2 ml-3 footer d-flex justify-content-between">
+                                <div class="like">
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <button style="border: none;color: blue;font-size: larger;" data-post-id="{{ post.id }}" class="likebtn font-weight-bolder"> <i class="bi bi-hand-thumbs-up-fill"></i></button>
+                                    </form>
+                                {% if post.no_of_likes == 0 %}
+                                    <p class="post-id-{{ post.id }}">No Like</p>
+                                {% elif post.no_of_likes == 1 %}
+                                    <p class="post-id-{{ post.id }}">{{ post.no_of_likes }} Like</p>
+                                {% else %}
+                                    <p class="post-id-{{ post.id }}">{{ post.no_of_likes }} Likes</p>
+                                {% endif %}
+    
+                                </div>
+                                <div class="createdat">
+                                    <h6>{{ post.created_at }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    {% else %}
+                        <div class="container ml-5 mb-5 bg-white shadow-lg rounded-lg">
+                            <div class="d-flex header p-2 pt-3 justify-content-between">
+                                <div class="d-flex">
+                                    <a href="{% url 'user_profile' username=post.user %}">
+                                        
+                                        {% if post.profile.profilepic %}
+                                        <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic }}" alt="">
+                                        {% else %} 
+                                        <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic.field.default }}" alt="">
+                                        {% endif %}
+                                            
+                                    </a>
+                                    <span><a style="text-decoration: none;color:#b921ff ;" href="{% url 'user_profile' username=post.user %}">{{ post.user }}</a></span>
+                                </div>  
+                                <div>
+                                    <div class="btn-group dropdown">
+                                        <button type="button" class="btn" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item text-primary" href="/media/{{ post.image }}" download><i class="bi bi-download"></i> DOWNLOAD</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="text">
+                                <p class="text-center font-weight-bold text-uppercase">{{ post.text }}</p>
+                            </div>
+                            <div class="image text-center">
+                                <a href="/media/{{ post.image }}">
+                                    <img style="max-height: calc(100%/3);max-width: 600px;" src="/media/{{ post.image }}" alt="">
+                                </a>
+                            </div>
+                            <hr>
+                            <div class="p-2 ml-3 footer d-flex justify-content-between">
+                                <div class="like">
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <button style="border: none;color: blue;font-size: larger;" data-post-id="{{ post.id }}" class="likebtn font-weight-bolder"> <i class="bi bi-hand-thumbs-up-fill"></i></button>
+                                    </form>
+                                {% if post.no_of_likes == 0 %}
+                                    <p class="post-id-{{ post.id }}">No Like</p>
+                                {% elif post.no_of_likes == 1 %}
+                                    <p class="post-id-{{ post.id }}">{{ post.no_of_likes }} Like</p>
+                                {% else %}
+                                    <p class="post-id-{{ post.id }}">{{ post.no_of_likes }} Likes</p>
+                                {% endif %}
+    
+                                </div>
+                                <div class="createdat">
+                                    <h6>{{ post.created_at }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+            <div class="col-4 right">
+                <div class="container p-4 ml-5 bg-white shadow-lg rounded-lg">
+                    <h6 class="text-center p-1">USERS YOU CAN FOLLOW</h6>
+                    <hr>
+                    
+                    {% if usersuglen == 0 %}
+                        <h5 class="text-center">No One To Follow!</h5>
+                    {% endif %}
+                        
+                    {% for profile in usersuggestion %}
+                        <div class="d-flex m-3 justify-content-between">
+                        <div class="d-flex">
+                            <div class="d-flex">
+                                <a href="{% url 'user_profile' username=profile.user.username %}">
+                                    
+                                    {% if profile.profilepic %}
+                                    <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ profile.profilepic }}" alt="">  
+                                    {% else %}
+                                    <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ profile.profilepic.field.default }}" alt="">
+                                    {% endif %}
+                                        
+                                </a>
+                                <span><a style="text-decoration: none;" href="{% url 'user_profile' username=profile.user.username %}">{{ profile.user.username }}</a></span>
+                            </div>  
+                        </div>
+                        <div>
+                            <a style="text-decoration: none;" href="{% url 'homefollower' username=profile.user.username %}" class="btn btn-sm btn-danger ">FOLLOW</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+    

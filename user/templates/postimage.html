@@ -1,0 +1,34 @@
+{% extends 'userbase.html' %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-8 offset-2">
+            <div class="container mt-5 bg-white shadow-lg border border-dark p-4 rounded-lg">
+                <h1 style="color: #b921ff;" class="text-center font-italic mb-3">NEW POST - IMAGE</h1>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label style="color: #b921ff;"  for="image" class="form-label font-weight-bolder">Upload Image</label>
+                        <input type="file" name="image" id="image" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label style="color: #b921ff;" class="form-label font-weight-bolder" for="post">CAPTION</label>
+                        <textarea class="form-control" name="post" placeholder="For caption" id="post" cols="30" rows="10"></textarea>
+                    </div>
+                    <div>
+                        <button style="background-color: #b921ff;color: white;" class="btn btn-block">POST</button>
+                    </div>
+                </form>
+                <div class="message text-center">
+                    
+                    {% for message in messages %}
+                        <small style="color: red;">{{ message }}</small>
+                    {% endfor %}
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    
