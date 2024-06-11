@@ -2,10 +2,12 @@
 
 
 {% block content %}
-    <div class="row">
-        <div class="col-10 shadow-lg p-3 offset-1">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-10 shadow-sm p-3  border">
+            <h3 class="text-center ">USER PROFILE</h3>
+            <hr/>
             <div class="head d-flex">
-                <div class="col-4">
+                <div class="col-md-4">
                     <div class="container">
                         {% if profiles.profilepic %} 
                         <img style="height: 200px;width: 200px;border: 2px black solid;" src="/media/{{ profiles.profilepic }}" alt="">
@@ -14,7 +16,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-md-8">
                     <div class="row h-100 align-items-center justify-content-center">
                         <div class="col">
                             <h4 class="font-weight-bolder">POSTS {{ no_of_posts }}</h4>
@@ -46,8 +48,7 @@
                 </div>
             </div>
             <div class="tail p-5">
-                <h5 class="font-weight-bolder">User details :</h5>
-                <table class="table table-borderless text-center">
+                <table class="table text-center">
                     <tr>
                         <th>USERNAME</th>
                         <td>:</td>
@@ -70,27 +71,27 @@
                     </tr>
                 </table>
                 <h5 class="font-weight-bolder mt-5">BIO :</h5>
-                <p class="text-center">{{ profiles.bio }}</p>
+                <p style="min-height: 200px;min-width: 200px;" class="text-center border">{{ profiles.bio }}</p>
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top: 100px;">
-        <div class="col-8 offset-2 p-5">
+    <div class="row justify-content-center" style="margin-top: 100px;">
+        <div class="col-md-8 p-5">
             <h3 class="text-center mb-5 font-weight-bolder">
                 YOUR POSTS
             </h3>
             {% for post in posts reversed %}
                     
                     {% if post.image == "" %}
-                        <div class="container mb-5 bg-white shadow-lg rounded-lg">
+                        <div class="border border-3 mb-5 bg-white shadow-sm rounded-lg">
                             <div class="d-flex header p-2 pt-3 justify-content-between">
                                 <div class="d-flex">
                                     <a href="">
 
                                         {% if post.profile.profilepic %}
-                                        <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic }}" alt="">
+                                        <img style="max-height: 30px;max-width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic }}" alt="">
                                         {% else %} 
-                                        <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic.field.default }}" alt="">
+                                        <img style="max-height: 30px;max-width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic.field.default }}" alt="">
                                         {% endif %}
 
                                     </a>
@@ -127,15 +128,15 @@
                         </div>
                     
                     {% else %}
-                        <div class="container mb-5 bg-white shadow-lg rounded-lg">
+                        <div class="border border-3 mb-5 bg-white shadow-sm rounded-lg">
                             <div class="d-flex header p-2 pt-3 justify-content-between">
                                 <div class="d-flex">
                                     <a href="">
                                         
                                         {% if post.profile.profilepic %}
-                                        <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic }}" alt="">
+                                        <img style="max-height: 30px;max-width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic }}" alt="">
                                         {% else %} 
-                                        <img style="height: 30px;width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic.field.default }}" alt="">
+                                        <img style="max-height: 30px;max-width: 30px;border-radius: 50%; margin-right: 10px;" src="/media/{{ post.profile.profilepic.field.default }}" alt="">
                                         {% endif %}
 
                                     </a>
@@ -151,7 +152,7 @@
                             </div>
                             <div class="image text-center">
                                 <a href="/media/{{ post.image }}">
-                                    <img style="max-height: calc(100%/3);max-width: 600px;" src="/media/{{ post.image }}" alt="">
+                                    <img class="img-fluid" src="/media/{{ post.image }}" alt="">
                                 </a>
                             </div>
                             <hr>

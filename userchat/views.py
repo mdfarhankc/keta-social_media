@@ -45,6 +45,7 @@ def chat(request, username):
     other_user = User.objects.get(username=username)
     other_user_profile = Profile.objects.get(user_id=other_user.id)
     chats = Chat.objects.filter(sender=user, receiver=other_user) | Chat.objects.filter(sender=other_user, receiver=user)
+    chats = chats.order_by('timestamp')
 
     if request.method == 'POST':
         message = request.POST.get('message')

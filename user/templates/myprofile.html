@@ -5,19 +5,20 @@
     {% for message in messages %}
         <div id="passsuccess" class="alert alert-info text-center mt-3 mx-5">{{ message }}</div>
     {% endfor %}
-    <div class="row">
-        <div class="col-10 shadow-lg p-3 offset-1">
-            <div class="head d-flex">
-                <div class="col-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 shadow-sm p-4 border border-3">
+            <h3 class="text-center ">MY PROFILE</h3>
+            <hr/>
+            <div class="head d-flex justify-content-between">
+                <div class="col-md-6">
                     <div class="container">
-                        <!-- <img style="height: 200px;width: 200px;border: 2px black solid;" src="/media/{{ profile.profilepic }}" alt=""> -->
                         <div class="dropdown">
                             <button type="button" data-toggle="dropdown" aria-expanded="false">
                                 
                                 {% if profile.profilepic %} 
-                                <img style="height: 200px;width: 200px;border: 2px black solid;" src="/media/{{ profile.profilepic }}" alt="">
+                                <img style="max-height: 200px;max-width: 200px;border: 2px black solid;" src="/media/{{ profile.profilepic }}" alt="">
                                 {% else %}
-                                <img style="height: 200px;width: 200px;border: 2px black solid;" src="/media/{{ profile.profilepic.field.default }}" alt="Default Profile Picture">
+                                <img style="max-height: 200px;max-width: 200px;border: 2px black solid;" src="/media/{{ profile.profilepic.field.default }}" alt="Default Profile Picture">
                                 {% endif %}
                                     
 
@@ -34,35 +35,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-md-6">
                     <div class="row h-100 align-items-center justify-content-center">
-                        <div class="col">
-                            <h4 class="font-weight-bolder">POSTS {{ no_of_posts }}</h4>
+                        <div class="col-md-12">
+                            <h6 class="font-weight-bolder">POSTS - {{ no_of_posts }}</h6>
                         </div>
-                        <div class="col">
-                            <h4 class="font-weight-bolder">FOLLOWERS {{ follower }}</h4>
+                        <div class="col-md-12">
+                            <h6 class="font-weight-bolder">FOLLOWERS - {{ follower }}</h6>
                         </div>
-                        <div class="col">
-                            <h4 class="font-weight-bolder">FOLLOWING {{ following }}</h4>
+                        <div class="col-md-12">
+                            <h6 class="font-weight-bolder">FOLLOWING - {{ following }}</h6>
                         </div>
-                        <div class="col">
+                        <div class="col-md-12">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-gear"></i> SETTINGS
                                 </button>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item text-warning"  href="{% url 'updateprofile' %}"> <i class="bi bi-pencil-square"></i> UPDATE PROFILE</a>
                                     <a class="dropdown-item text-primary"  href="{% url 'change_password' %}"> <i class="bi bi-shield-lock"></i> CHANGE PASSWORD</a>
                                     <a class="dropdown-item text-danger"  onclick="return confirm('Are you sure you want to deactivate your account?');"  href="{% url 'deactivate' %}"> <i class="bi bi-trash"></i> DEACTIVATE ACCOUNT</a>
                                 </div>
-                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="tail p-5">
-                <h5 class="font-weight-bolder">User details :</h5>
-                <table class="table table-borderless text-center">
+                <table class="table text-center">
                     <tr>
                         <th>USERNAME</th>
                         <td>:</td>
@@ -85,12 +85,12 @@
                     </tr>
                 </table>
                 <h5 class="font-weight-bolder mt-5">BIO :</h5>
-                <p class="text-center">{{ profile.bio }}</p>
+                <p style="min-height: 200px;min-width: 200px;" class="text-center border">{{ profile.bio }}</p>
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top: 100px;">
-        <div class="col-8 offset-2 p-5">
+    <div class="row justify-content-center" style="margin-top: 100px;">
+        <div class="col-md-8 p-5">
             <h3 class="text-center mb-5 font-weight-bolder">
                 YOUR POSTS
             </h3>
@@ -100,7 +100,7 @@
             {% for post in posts reversed %}
                         
                     {% if post.image == "" %}
-                        <div class="container mb-5 bg-white shadow-lg rounded-lg">
+                        <div class="container border mb-5 bg-white shadow-sm rounded-lg">
                             <div class="d-flex header p-2 pt-3 justify-content-between">
                                 <div class="d-flex">
                                     <a href="">
@@ -119,7 +119,7 @@
                                         <button type="button" class="btn" data-toggle="dropdown" aria-expanded="false">
                                             <i class="bi bi-three-dots"></i>
                                         </button>
-                                        <div class="dropdown-menu">
+                                        <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item text-danger" onclick="return confirm('Are you sure you want to delete the post?');" href="{% url 'delete_post' id=post.id %}"><i class="bi bi-trash"></i> DELETE</a>
                                         </div>
                                     </div>
@@ -152,7 +152,7 @@
                         </div>
                     
                     {% else %}
-                        <div class="container mb-5 bg-white shadow-lg rounded-lg">
+                        <div class="container border mb-5 bg-white shadow-sm rounded-lg">
                             <div class="d-flex header p-2 pt-3 justify-content-between">
                                 <div class="d-flex">
                                     <a href="">
@@ -171,7 +171,7 @@
                                         <button type="button" class="btn" data-toggle="dropdown" aria-expanded="false">
                                             <i class="bi bi-three-dots"></i>
                                         </button>
-                                        <div class="dropdown-menu">
+                                        <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item text-danger" onclick="return confirm('Are you sure you want to delete the post?');" href="{% url 'delete_post' id=post.id %}"><i class="bi bi-trash"></i> DELETE</a>
                                         </div>
                                     </div>
@@ -183,7 +183,7 @@
                             </div>
                             <div class="image text-center">
                                 <a href="/media/{{ post.image }}">
-                                    <img style="max-height: calc(100%/3);max-width: 600px;" src="/media/{{ post.image }}" alt="">
+                                    <img class="img-fluid" src="/media/{{ post.image }}" alt="">
                                 </a>
                             </div>
                             <hr>

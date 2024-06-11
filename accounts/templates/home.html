@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
 <style>
     #loader {
@@ -18,63 +17,92 @@
         opacity: 1;
         transition: opacity 0.5s ease-in-out;
     }
-  
+
     .spinner {
-      border: 10px solid #f3f3f3;
-      border-top: 10px solid #3498db;
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: -60px;
-      margin-left: -60px;
-      animation: spin 2s linear infinite;
+        border: 10px solid #f3f3f3;
+        border-top: 10px solid #3498db;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -60px;
+        margin-left: -60px;
+        animation: spin 2s linear infinite;
     }
-  
+
     @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
-  </style>
-  
-    <div id="loader">
-        <img class="brand" src="{% static 'img/keta.png' %}" alt="keta">
-        <div class="spinner"></div>
-    </div>
-    <div id="page-content" class="row" style="height: 80vh;align-items: center;">
-        <div class="col-6 text-center text-white">
+
+    .welcome {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+    .registerbtn {
+        border: 2px solid #ffffff;
+        text-decoration: none;
+        font-weight: 500;
+        border-radius: 20px;
+        padding: 10px;
+        color: #ffffff;
+        background-color: #b921ff;
+        display: inline-block;
+    }
+
+    .registerbtn:hover {
+        background-color: #ffffff;
+        text-decoration: none;
+        color: #b921ff;
+    }
+
+    .chat {
+        max-height: 400px;
+        max-width: 100%;
+    }
+</style>
+
+<div id="loader">
+    <img class="brand" src="{% static 'img/keta.png' %}" alt="keta">
+    <div class="spinner"></div>
+</div>
+
+<div id="page-content" class="container-fluid">
+    <div class="row" style="height: 80vh; align-items: center;">
+        <div class="col-lg-6 col-md-12 text-center text-white">
             <h3 class="welcome">WELCOME TO KETA.</h3>
             <a href="{% url 'register' %}" class="registerbtn"><i class="bi bi-laptop"></i> CREATE A NEW ACCOUNT</a>
         </div>
-        <div class="col-6 text-center">
+        <div class="col-lg-6 col-md-12 text-center">
             <img class="chat" src="{% static 'img/chat.png' %}" alt="">
         </div>
     </div>
-    <script>
-        const loader = document.getElementById("loader");
+</div>
 
-        // hide the loader after 2 seconds
-        setTimeout(() => {
+<script>
+    const loader = document.getElementById("loader");
+
+    // hide the loader after 2 seconds
+    setTimeout(() => {
         // reduce the opacity of the loader to 0 over 0.5 seconds
         let opacity = 1;
         const timer = setInterval(() => {
-        if (opacity <= 0) {
-        // remove the loader from the DOM
-        loader.style.display = "none";
-        clearInterval(timer);
-        } else {
-        opacity -= 0.1;
-        loader.style.opacity = opacity;
-        }
+            if (opacity <= 0) {
+                // remove the loader from the DOM
+                loader.style.display = "none";
+                clearInterval(timer);
+            } else {
+                opacity -= 0.1;
+                loader.style.opacity = opacity;
+            }
         }, 50);
-        }, 2000);
-    </script>
-      
+    }, 2000);
+</script>
 {% endblock content %}
-    
